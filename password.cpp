@@ -76,7 +76,7 @@ void password::registerp()
         outputFile.close();
 }
 void password::loginp()
-{
+{ 
     int pl = 3;
         string userInput;
         cout << "Log in: \n";

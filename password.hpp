@@ -1,6 +1,6 @@
 #include <iostream>
 using std::string;
-class password
+class password 
 {
     public:
     password();
