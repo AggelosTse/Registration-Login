@@ -1,31 +1,25 @@
-#include <iostream>
-#include <string>
+#include "password.hpp"
 #include <fstream>
-#include <cstring>
+#include <limits>
 #include <time.h>
-#include <limits> 
-using std::cin,std::cout,std::string,std::cerr;
-
-class password
+using std::cin,std::cout,std::cerr;
+password::password()
 {
-  public:
-    password()
-    {
-        std::ifstream inputFile("pass.txt");
-        if (!inputFile.is_open()) 
+    std::ifstream inputFile("pass.txt");
+    if (!inputFile.is_open()) 
         {
             cerr << "Error opening the file for reading!\n";
             return;
         }
-        inputFile >> fileContent;
-        inputFile.close();
-        if (fileContent.empty()) {registerp();}
-        else {loginp();}                        // File is not empty, it's a login process
-    }
-
-    void registerp()
-    {
-        string g;
+    inputFile >> fileContent;
+    inputFile.close();
+    if (fileContent.empty()) {registerp();}
+    else {loginp();}                        // File is not empty, it's a login process
+    
+}
+void password::registerp()
+{
+    string g;
         cout << "Register: \n\n";
         cout << "1.Choose your own password.\n";
         cout << "2.Generate random password.\n";
@@ -80,41 +74,28 @@ class password
         }
         outputFile << pass;     // Write the password to the file
         outputFile.close();
-    }
-
-    void loginp()
-    {
-        int pl = 3;
+}
+void password::loginp()
+{
+    int pl = 3;
         string userInput;
         cout << "Log in: \n";
         cin >> userInput;
-        while(userInput != fileContent)
+        while((userInput != fileContent) && (pl >= 0))
         {
-           if(pl == 0)
+           if(pl == 1)
            {
-            cout << "You have entered wrong password 3 times.\n";
-            break;
+            cout << "last try:\n";
            }
+           else
+           {
            cout << "Invalid login. " << pl <<" tries remaining\n";
+           }
+           if(pl==0){cout << "you entered wrong password 3 times."; break;}
            pl--;
            cin >> userInput;
         }
         if(userInput == fileContent) {cout << "Welcome!\n";}
         return;
-    }
-    private:
-    int i,password_length,array;
-    string ans,fileContent;
-    char num[10] = {'0','1','2','3','4','5','6','7','8','9'}; 
-    char blet[27] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-    char slet[27] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-    char pass[20];
-};
-int main()
-{
-    password p;
-    return 0;
-} 
-
-    
-        
+}
+password::~password() {}
