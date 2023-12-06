@@ -78,24 +78,45 @@ void password::registerp()
 void password::loginp()
 { 
     int pl = 3;
-        string userInput;
-        cout << "Log in: \n";
-        cin >> userInput;
-        while((userInput != fileContent) && (pl >= 0))
+    int a;
+    string userInput;
+    cout << "1. Log in \n" << "2. Reset password\n";
+    cin >> a;
+    switch(a)
         {
-           if(pl == 1)
-           {
-            cout << "last try:\n";
-           }
-           else
-           {
-           cout << "Invalid login. " << pl <<" tries remaining\n";
-           }
-           if(pl==0){cout << "you entered wrong password 3 times."; break;}
-           pl--;
-           cin >> userInput;
-        }
-        if(userInput == fileContent) {cout << "Welcome!\n";}
-        return;
+        case 1:
+          cout << "Give password: \n";
+          cin >> userInput;
+          while((userInput != fileContent) && (pl >= 0))
+            {
+                cin >> userInput;
+                while((userInput != fileContent) && (pl >= 0))
+                    {
+                        if(pl == 1)
+                            {
+                                cout << "last try:\n";
+                            }
+                        else
+                            {
+                                cout << "Invalid login. " << pl <<" tries remaining\n";
+                            }
+                        if(pl==0){cout << "you entered wrong password 3 times."; break;}
+                        pl--;
+                        cin >> userInput;
+                    }
+                if(userInput == fileContent) {cout << "Welcome!\n";}
+                return;
+            }
+            if(userInput == fileContent) {cout << "Welcome!\n";}
+            return;
+        
+        case 2:
+            std::ofstream outFile("pass.txt");
+            if (!outFile.is_open()) {cerr << "Error opening file.\n";}
+            outFile.seekp(0, std::ios::beg);
+            outFile << ""; 
+            registerp();
+        
+}
 }
 password::~password() {}
