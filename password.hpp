@@ -6,7 +6,7 @@ class password
     password();
     void registerp();
     void loginp();
-    void clearscreen();
+    void clearscreen(); 
     ~password();
 
     private:

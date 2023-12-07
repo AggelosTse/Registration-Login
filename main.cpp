@@ -1,9 +1,9 @@
 #include "password.hpp"
 int main()
 {
-    password p;
+    password p; //create an object named p.
     return 0; 
-}  
+}   
 
       
         

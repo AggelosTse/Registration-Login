@@ -3,12 +3,12 @@
 #include <limits>
 #include <time.h>
 
-using std::cin,std::cout;
+using std::cin,std::cout,std::ofstream,std::ifstream;
 
 
-password::password()
+password::password()        //constructor that checks if the pass.txt file is empty. 
 {
-    std::ifstream inputFile("pass.txt");
+    ifstream inputFile("pass.txt");
     if (!inputFile.is_open()) 
         {
             cout << "Error opening the file for reading!\n";
@@ -16,7 +16,7 @@ password::password()
         }
     inputFile >> fileContent;
     inputFile.close();
-    if (fileContent.empty()) {registerp();}
+    if (fileContent.empty()) {registerp();} //File is empty, its a registration process
     else {loginp();}                        // File is not empty, it's a login process
     
 }
@@ -44,23 +44,24 @@ void password::registerp()
     cin >> g; 
     while(g != "1" && g != "2")
         {
-            cout << "invalid input. Try again.\n";
+            cout << "Invalid Input, try again.\n";
             cin >> g;
         }
     clearscreen();
     if(g == "2")
         {
+            int i;
             cout << "Enter the length of the password: [1-21]\n";
             cin >> password_length;
-            while((password_length <= 0 || password_length > 21) || std::cin.fail())
+            while((password_length <= 0 || password_length > 21) || cin.fail()) //password length must be a number in from 1 to 21
                 {
                     cin.clear();       
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                    cout << "Invalid Input, try again." << "\n";
+                    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    cout << "Invalid Input, try again.\n";
                     cin >> password_length;
                 }
             srand(time(NULL));
-            for(i=0;i<password_length;i++)
+            for(i=0;i<password_length;i++)      //picks a random array from num[],blet[],slet[] and adds a random element in pass[] array.
                 {
                     array = rand() % 3;
                     switch(array)
@@ -88,7 +89,7 @@ void password::registerp()
             clearscreen();
             cout << "Password Generated!\n";
         }
-    std::ofstream outputFile("pass.txt");
+        ofstream outputFile("pass.txt");        //then adds the pass[] in the file.
         if (!outputFile.is_open()) 
         {
             cout << "Error opening the file for writing!\n";
@@ -102,20 +103,19 @@ void password::registerp()
 void password::loginp()
 { 
     clearscreen();
-    int pl = 3;
-    string a;
-    string userInput;
+    string a,userInput;
     cout << "1. Log in \n" << "2. Reset password\n";
     cin >> a;
     while(a != "1" && a != "2")
     {
-        cout << "invalid input. Try again\n";
+        cout << "Invalid Input, try again.\n";
         cin >> a;
     }
     clearscreen();
-    if(a == "1")
+    if(a == "1")        //checks if the input from user is the password inside the file.
     {
-          cout << "Give password: \n";
+          int pl = 3;
+          cout << "Give password: \n";          
           cin >> userInput;
           while((userInput != fileContent) && (pl >= 0))
             {
@@ -134,11 +134,11 @@ void password::loginp()
             }
             clearscreen();
             if(userInput == fileContent) {cout << "Welcome!\n";}
-                return;
+            return;
     }
     else
-    {
-            std::ofstream outFile("pass.txt");
+    {                       
+            ofstream outFile("pass.txt");       //opens the file and clears it.
             if (!outFile.is_open()) {cout << "Error opening file.\n";}
             outFile.seekp(0, std::ios::beg);
             outFile << ""; 
