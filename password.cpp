@@ -69,7 +69,7 @@ void password::registerp()
                             case 0:
                                 pass[i] =  num[rand() % 10];
                                 break;
-                            case 1:
+                            case 1: 
                                 pass[i] = blet[rand() % 26];
                                 break;
                             case 2:
