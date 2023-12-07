@@ -2,13 +2,13 @@
 #include <fstream>
 #include <limits>
 #include <time.h>
-using std::cin,std::cout,std::cerr;
+using std::cin,std::cout;
 password::password()
 {
     std::ifstream inputFile("pass.txt");
     if (!inputFile.is_open()) 
         {
-            cerr << "Error opening the file for reading!\n";
+            cout << "Error opening the file for reading!\n";
             return;
         }
     inputFile >> fileContent;
@@ -69,7 +69,7 @@ void password::registerp()
         std::ofstream outputFile("pass.txt");
         if (!outputFile.is_open()) 
         {
-            cerr << "Error opening the file for writing!\n";
+            cout << "Error opening the file for writing!\n";
             return;
         }
         outputFile << pass;     // Write the password to the file
@@ -78,20 +78,21 @@ void password::registerp()
 void password::loginp()
 { 
     int pl = 3;
-    int a;
+    string a;
     string userInput;
     cout << "1. Log in \n" << "2. Reset password\n";
     cin >> a;
-    switch(a)
-        {
-        case 1:
+    while(a != "1" && a != "2")
+    {
+        cout << "invalid input. Try again\n";
+        cin >> a;
+    }
+    if(a == "1")
+    {
           cout << "Give password: \n";
           cin >> userInput;
           while((userInput != fileContent) && (pl >= 0))
             {
-                cin >> userInput;
-                while((userInput != fileContent) && (pl >= 0))
-                    {
                         if(pl == 1)
                             {
                                 cout << "last try:\n";
@@ -103,20 +104,18 @@ void password::loginp()
                         if(pl==0){cout << "you entered wrong password 3 times."; break;}
                         pl--;
                         cin >> userInput;
-                    }
-                if(userInput == fileContent) {cout << "Welcome!\n";}
-                return;
             }
             if(userInput == fileContent) {cout << "Welcome!\n";}
-            return;
-        
-        case 2:
+                return;
+    }
+    else
+    {
             std::ofstream outFile("pass.txt");
-            if (!outFile.is_open()) {cerr << "Error opening file.\n";}
+            if (!outFile.is_open()) {cout << "Error opening file.\n";}
             outFile.seekp(0, std::ios::beg);
             outFile << ""; 
             registerp();
-        
+    }
 }
-}
+
 password::~password() {}
