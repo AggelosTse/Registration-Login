@@ -2,7 +2,10 @@
 #include <fstream>
 #include <limits>
 #include <time.h>
+
 using std::cin,std::cout;
+
+
 password::password()
 {
     std::ifstream inputFile("pass.txt");
@@ -17,6 +20,11 @@ password::password()
     else {loginp();}                        // File is not empty, it's a login process
     
 }
+
+
+password::~password() {}
+
+
 void password::clearscreen()   //clears old data from the screen.
 {
   #ifdef _WIN32     //checks if the program is running from a Windows operating system.
@@ -25,20 +33,22 @@ void password::clearscreen()   //clears old data from the screen.
     system("clear");  //if it is running from unix or macOS, it runs this command that does the same thing.
   #endif
 }
+
+
 void password::registerp()
 {
     string g;
-        cout << "Register: \n\n";
-        cout << "1.Choose your own password.\n";
-        cout << "2.Generate random password.\n";
-        cin >> g; 
-        while(g != "1" && g != "2")
+    cout << "Register: \n\n";
+    cout << "1.Choose your own password.\n";
+    cout << "2.Generate random password.\n";
+    cin >> g; 
+    while(g != "1" && g != "2")
         {
             cout << "invalid input. Try again.\n";
             cin >> g;
         }
-        clearscreen();
-        if(g == "2")
+    clearscreen();
+    if(g == "2")
         {
             cout << "Enter the length of the password: [1-21]\n";
             cin >> password_length;
@@ -71,14 +81,14 @@ void password::registerp()
             for(i=0;i<password_length;i++) {cout << pass[i];}
             cout << "\n";
         }
-        else
+    else
         {
             cout << "Choose a password: \n";
             cin >> pass;
             clearscreen();
             cout << "Password Generated!\n";
         }
-        std::ofstream outputFile("pass.txt");
+    std::ofstream outputFile("pass.txt");
         if (!outputFile.is_open()) 
         {
             cout << "Error opening the file for writing!\n";
@@ -87,6 +97,8 @@ void password::registerp()
         outputFile << pass;     // Write the password to the file
         outputFile.close();
 }
+
+
 void password::loginp()
 { 
     clearscreen();
@@ -133,5 +145,3 @@ void password::loginp()
             registerp();
     }
 }
-
-password::~password() {}
