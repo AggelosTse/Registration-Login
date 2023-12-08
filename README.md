@@ -1,4 +1,4 @@
-# Pomodoro
+# Information
 
 -A simple registration/login system made in c++. 
 
