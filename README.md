@@ -13,14 +13,17 @@
 1)Clone the repository with this command:
 
   'git clone https://github.com/AggelosTse/Registration-Login.git'
+
   
 2)navigate into the project's directory:
 
   cd Registration-Login
+
   
 3)Compile it with this command:
 
   g++ main.cpp password.cpp -o hello
+
   
 4)Run it:
   if you have linux or macOS, write this command: ./hello
