@@ -1,14 +1,20 @@
-# Information
+# Registration & Login System (C++)
 
--A simple registration/login system made in c++. 
+A simple authentication system built with C++. This project demonstrates user management, file handling for data persistence, and automated password security.
 
-# Features
+---
 
--Create your own password, or let the system generate one for you.
+## Features
 
--Reset your password anytime you want.
+* **User Registration:** Create a new account with a custom username.
+* **Smart Passwords:** Choose your own password or let the system's **Random Code Generator** create a secure one for you.
+* **Data Persistence:** All credentials are securely saved to a `.txt` file.
+* **Password Recovery:** Reset your password at any time if you forget it.
 
-# Instructions
+---
+
+## Installation & Setup
+
 
 1)Clone the repository with this command:
 
